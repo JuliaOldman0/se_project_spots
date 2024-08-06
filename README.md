@@ -29,3 +29,5 @@ Spots is an image sharing site designed to allow users to share and explore imag
 This website is deployed to GitHub Pages
 
 - [Spots Account Page](https://juliaoldman0.github.io/se_project_spots/)
+
+- [Video](https://drive.google.com/drive/folders/1optizIgL_B_PzHoAazobEAnnw0kYcAQk?usp=drive_link)
