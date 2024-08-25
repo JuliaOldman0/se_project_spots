@@ -21,6 +21,12 @@
   font-weight: 500;
   color: #212121;
   margin: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  max-width: 353px;
 }
 
 .card__like-button {
