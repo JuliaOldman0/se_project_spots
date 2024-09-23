@@ -62,8 +62,7 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardLikeBtn = cardElement.querySelector(".card__like-button");
-  
-  //TODO - select the delete btn
+  const cardDeleteBtn = cardElement.querySelector(".card__delete-btn");
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
@@ -81,8 +80,14 @@ function getCardElement(data) {
     previewModalImageEl.alt = data.name;
   });
 
-  // TODO - set the listener on delete btn
-  // TODO - the handeler should remove the card from the DOM
+  cardDeleteBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const cardElement = event.target.closest(".card");
+    if (cardElement) {
+      cardElement.remove(); 
+    }
+  });
 
   return cardElement;
 }
@@ -104,16 +109,12 @@ function handleEditFormSubmit(evt) {
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  // console.log(cardNameInput.value);
-  // console.log(cardLinkInput.value);
-  // TODO - make image appear when adding card
   const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
   getCardElement(inputValues);
 
   const cardElement = getCardElement(inputValues);
-  // TODO - make sure card appears at top of the list
-  cardsList.append(cardElement);
-  // TODO - Close the modal
+  cardsList.prepend(cardElement);
+  closeModal();
 }
 
 profileEditButton.addEventListener("click", () => {

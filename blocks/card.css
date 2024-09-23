@@ -1,9 +1,34 @@
+.card {
+  position: relative;
+}
+
 .card__image {
   height: 413px;
   width: 100%;
   object-fit: cover;
   display: block;
   border-radius: 8px;
+}
+
+.card__delete-btn {
+  background-image: url(../images/delete_icon.svg);
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 371px;
+  transition: color 0.2s linear;
+}
+
+.card__delete-btn:hover {
+  background-image: url(../images/hover_delete_icon.svg);
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border: none;
 }
 
 .card__content {
@@ -31,7 +56,6 @@
 
 .card__like-button {
   background-image: url(../images/heart.svg);
-  /* transparent center no-repeat */
   width: 23px;
   height: 20px;
   border: none;

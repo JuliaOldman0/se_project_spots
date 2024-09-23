@@ -29,6 +29,7 @@
 
 .modal__container_type_preview {
   padding: 0;
+  position: relative;
 }
 
 .modal__image {
@@ -45,9 +46,9 @@
   height: 40px;
   border: none;
   background-image: url(../images/close_icon.svg);
-  opacity: 40%;
+  opacity: 0.4;
   background-color: #fff;
-  transition: background 0.3s;
+  transition: color 0.2s linear;
 }
 
 .modal__close-btn:hover {
