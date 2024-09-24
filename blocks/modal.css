@@ -18,7 +18,7 @@
 }
 
 .modal__container {
-  background: #fff;
+  background-color: #fff;
   padding: 32px 50px;
   max-width: 730px;
   width: 100%;
@@ -29,13 +29,18 @@
 
 .modal__container_type_preview {
   padding: 0;
-  position: relative;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal__image {
-  width: 100%;
   max-width: 80vw;
   max-height: 80vh;
+  border-radius: 8px;
 }
 
 .modal__close-btn {
@@ -47,21 +52,34 @@
   border: none;
   background-image: url(../images/close_icon.svg);
   opacity: 0.4;
-  background-color: #fff;
+  background-color: transparent;
   transition: color 0.2s linear;
 }
 
 .modal__close-btn:hover {
   background-image: url(../images/close_icon.svg);
-  opacity: 100%;
+  opacity: 1;
   cursor: pointer;
 }
 
 .modal__close-btn-preview {
   background-image: url(../images/white_close_btn.svg);
-  top: 0;
-  right: -12.5px;
+  top: 0px;
+  right: 100px;
   opacity: 1;
+  position: absolute;
+}
+
+.modal__caption {
+  background-color: #212121;
+  max-width: 135px;
+  max-height: 32px;
+  width: 100%;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 20px;
+  line-height: 1.2;
+  padding: 8px 4px;
 }
 
 .modal__title {
@@ -96,7 +114,6 @@
 }
 
 .modal__submit-btn:hover {
-  
 }
 
 @media screen and (max-width: 627px) {

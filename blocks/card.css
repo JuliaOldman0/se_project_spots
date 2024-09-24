@@ -66,15 +66,18 @@
 
 .card__like-button:hover {
   opacity: 100%;
+  background-color: transparent;
 }
 
 .card__like-button_liked {
   background-image: url(../images/liked_heart.svg);
   opacity: 100%;
+  background-color: transparent;
 }
 
 .card__like-button_liked:hover {
   background-image: url(../images/liked_hover_heart.svg);
+  background-color: transparent;
 }
 
 @media screen and (max-width: 627px) {
