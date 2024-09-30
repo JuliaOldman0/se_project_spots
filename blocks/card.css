@@ -62,6 +62,7 @@
   background-color: transparent;
   opacity: 40%;
   cursor: pointer;
+  transition: color 0.2s linear;
 }
 
 .card__like-button:hover {
@@ -73,6 +74,8 @@
   background-image: url(../images/liked_heart.svg);
   opacity: 100%;
   background-color: transparent;
+  transition: color 0.2s linear;
+  cursor: pointer;
 }
 
 .card__like-button_liked:hover {
