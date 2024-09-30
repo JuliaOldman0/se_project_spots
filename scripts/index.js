@@ -115,7 +115,7 @@ function handleAddCardSubmit(evt) {
   getCardElement(inputValues);
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
-  closeModal();
+  closeModal(cardModal);
 }
 
 profileEditButton.addEventListener("click", () => {
