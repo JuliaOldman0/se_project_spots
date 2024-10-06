@@ -86,7 +86,7 @@ function getCardElement(data) {
 
   cardDeleteBtn.addEventListener("click", (event) => {
     event.preventDefault();
-    const cardElement = event.target.closest(".card");
+    // const cardElement = event.target.closest(".card");
     if (cardElement) {
       cardElement.remove();
     }
@@ -115,7 +115,9 @@ function handleAddCardSubmit(evt) {
   getCardElement(inputValues);
   const cardElement = getCardElement(inputValues);
   cardsList.prepend(cardElement);
-  closeModal(cardModal);
+  // closeModal(cardModal);
+  cardNameInput.value = "";
+  cardLinkInput.value = "";
 }
 
 profileEditButton.addEventListener("click", () => {

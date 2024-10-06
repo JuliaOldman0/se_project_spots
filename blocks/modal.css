@@ -32,7 +32,11 @@
 }
 
 .modal__container_type_preview {
- position: relative;
+  position: relative;
+  padding: 0;
+  width: auto;
+  max-height: 730px;
+  background-color: transparent;
 }
 
 .modal__image {
@@ -63,8 +67,9 @@
 .modal__close-btn-preview {
   background-image: url(../images/white_close_btn.svg);
   opacity: 1;
-  top: 0px;
+  top: 0;
   right: -50px;
+  position: absolute;
 }
 
 .modal__caption {
@@ -75,6 +80,7 @@
   line-height: 1.2;
   margin-top: 8px;
   padding: 4px 8px;
+  position: absolute;
 }
 
 .modal__title {
@@ -126,6 +132,14 @@
     top: 12px;
     right: 12px;
   }
+
+  .modal__close-btn-preview {
+  background-image: url(../images/white_close_btn.svg);
+  opacity: 1;
+  top: -25px;
+  right: 0;
+  position: absolute;
+}
 
   .modal__label {
     margin-bottom: 24px;
