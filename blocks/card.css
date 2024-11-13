@@ -63,11 +63,13 @@
   opacity: 40%;
   cursor: pointer;
   transition: color 0.2s linear;
+  background-repeat: no-repeat;
 }
 
 .card__like-button:hover {
   opacity: 100%;
   background-color: transparent;
+  background-repeat: no-repeat;
 }
 
 .card__like-button_liked {
@@ -76,6 +78,7 @@
   background-color: transparent;
   transition: color 0.2s linear;
   cursor: pointer;
+  background-repeat: no-repeat;
 }
 
 .card__like-button_liked:hover {
