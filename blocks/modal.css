@@ -135,7 +135,7 @@
   color: #fcf5e5;
 }
 
-.modal__button_disabled {
+.modal__submit-btn_disabled {
   background-color: rgba(33, 33, 33, 0.5);
   color: #fcf5e5;
   font-size: 16px;
