@@ -98,4 +98,9 @@
     font-size: 16px;
     max-width: 258px;
   }
+
+  .card__like-button {
+  max-width: 20px auto;
+  max-height: 18px auto;
+  }
 }
