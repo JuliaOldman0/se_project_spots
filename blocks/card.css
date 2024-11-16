@@ -35,7 +35,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
   margin: 12px 0 0;
 }
 
@@ -97,6 +96,6 @@
 
   .card__title {
     font-size: 16px;
-    line-height: 1;
+    max-width: 258px;
   }
 }
