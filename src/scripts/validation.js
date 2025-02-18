@@ -35,7 +35,7 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const disableButton = (buttonEl, config) => {
+export const disableButton = (buttonEl, config) => {
   buttonEl.disabled = true;
   buttonEl.classList.add(config.inactiveButtonClass);
 };
@@ -49,10 +49,13 @@ const toggleButtonState = (inputList, buttonEl, config) => {
   }
 };
 
-const resetValidation = (formEl, inputList, config) => {
+export const resetValidation = (formEl, inputList, config) => {
   inputList.forEach((input) => {
     hideInputError(formEl, input, config);
   });
+
+  const submitButton = formEl.querySelector(config.submitButtonSelector);
+  disableButton(submitButton, config);
 };
 
 const setEventListeners = (formEl, config) => {
@@ -75,6 +78,3 @@ export const enableValidation = (config) => {
     setEventListeners(formEl, config);
   });
 };
-
-
-

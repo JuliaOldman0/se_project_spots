@@ -1,42 +1,42 @@
 import "./index.css";
-import { enableValidation, settings } from "../scripts/validation.js";
+import { enableValidation, settings, resetValidation, disableButton } from "../scripts/validation.js"; // ✅ Imported missing functions
 import logo from "../images/logo.svg";
 import avatar from "../images/avatar.jpg";
 import penIcon from "../images/pen.svg";
 import plusIcon from "../images/plus_sign.svg";
+import Api from "../utils/Api.js";
+
 
 document.querySelector(".header__logo").src = logo;
 document.querySelector(".profile__avatar").src = avatar;
 document.querySelector(".profile__edit-btn img").src = penIcon;
 document.querySelector(".profile__add-btn img").src = plusIcon;
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  userUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "15d20bab-3906-48d9-b03a-14f860add378",
+    "Content-Type": "application/json",
+  },
+});
 
-const initialCards = [
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-];
+const cardsList = document.querySelector(".cards__list");
+
+api.getAppInfo()
+  .then(([cards, userInfo]) => {  
+    console.log(cards, userInfo);
+
+    cards.forEach((item) => {
+      const cardElement = getCardElement(item);
+      cardsList.append(cardElement);
+    });
+
+    document.querySelector(".profile__avatar").src = userInfo.avatar;
+    document.querySelector(".profile__name").textContent = userInfo.name;
+    document.querySelector(".profile__description").textContent = userInfo.about;
+  })
+  .catch(console.error);
 
 const profileEditButton = document.querySelector(".profile__edit-btn");
 const cardModalButton = document.querySelector(".profile__add-btn");
@@ -48,9 +48,7 @@ const editModal = document.querySelector("#edit-modal");
 const editFormElement = editModal.querySelector(".modal__form");
 const editModalCloseButton = editModal.querySelector(".modal__close-btn");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
-const editModalDescriptionInput = editModal.querySelector(
-  "#profile-description-input"
-);
+const editModalDescriptionInput = editModal.querySelector("#profile-description-input");
 
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
@@ -65,12 +63,9 @@ const previewCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
 
 const cardTemplate = document.querySelector("#card-template");
-const cardsList = document.querySelector(".cards__list");
 
 function getCardElement(data) {
-  const cardElement = cardTemplate.content
-    .querySelector(".card")
-    .cloneNode(true);
+  const cardElement = cardTemplate.content.querySelector(".card").cloneNode(true);
 
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
@@ -92,7 +87,7 @@ function getCardElement(data) {
     previewModalImageEl.alt = data.name;
   });
 
-  cardDeleteBtn.addEventListener("click", (event) => {
+  cardDeleteBtn.addEventListener("click", () => {
     cardElement.remove();
   });
 
@@ -105,7 +100,7 @@ previewCloseBtn.addEventListener("click", () => {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
-   document.addEventListener("keydown", handleEscapeKeyPress);
+  document.addEventListener("keydown", handleEscapeKeyPress);
 }
 
 function closeModal(modal) {
@@ -132,9 +127,16 @@ const handleEscapeKeyPress = (event) => {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal);
+  api.editUserInfo({
+    name: editModalNameInput.value, 
+    about: editModalDescriptionInput.value 
+  })
+  .then((data) => {
+    profileName.textContent = data.name;  
+    profileDescription.textContent = data.about; 
+    closeModal(editModal);
+  })
+  .catch(console.error);
 }
 
 function handleAddCardSubmit(evt) {
@@ -150,11 +152,7 @@ function handleAddCardSubmit(evt) {
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  resetValidation(
-    editFormElement,
-    [editModalNameInput, editModalDescriptionInput],
-    settings
-  );
+  resetValidation(editFormElement, [editModalNameInput, editModalDescriptionInput], settings);
   openModal(editModal);
 });
 
@@ -173,10 +171,4 @@ cardModalCloseBtn.addEventListener("click", () => {
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 
-initialCards.forEach((item) => {
-  const cardElement = getCardElement(item);
-  cardsList.append(cardElement);
-});
-
 enableValidation(settings);
-
