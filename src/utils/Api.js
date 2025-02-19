@@ -1,8 +1,7 @@
 class Api {
-  constructor({ baseUrl, headers, userUrl }) {
+  constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
-    this._userUrl = userUrl;
   }
 
   getAppInfo() {
@@ -33,8 +32,10 @@ class Api {
     });
   }
 
+// TODO - implement POST /cards
+
   getUserInfo() {
-    return fetch(`${this._userUrl}/user`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers, 
     }).then((res) => {
       if (res.ok) {
@@ -43,6 +44,33 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  editAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ avatar }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+  
 }
 
 export default Api;

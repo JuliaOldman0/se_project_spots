@@ -151,5 +151,43 @@
         <p class="modal__caption"></p>
       </div>
     </div>
+
+    <div class="modal" id="avatar-modal">
+      <div class="modal__container">
+        <button type="button" class="modal__close-btn"></button>
+        <h2 class="modal__title">Edit avatar</h2>
+        <form name="edit-profile" class="modal__form" id="edit-avatar-form" novalidate>
+          <label for="profile-avatar-input" class="modal__label">
+            Avatar
+            <input
+              id="profile-avatar-input"
+              class="modal__input"
+              name="avatar"
+              placeholder="avatar goes here"
+              required
+            />
+            <span id="profile-avatar-input-error" class="modal__error"></span>
+          </label>
+          
+          <button type="submit" class="modal__submit-btn">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- TODO - style the modal -->
+  <div class="modal" id="delete-modal">
+    <div class="modal__container">
+      <button type="button" class="modal__close-btn"></button>
+      <h2 class="modal__title">Are you sure you want to delete this image?</h2>
+      <form name="edit-profile" class="delete__form" id="edit-avatar-form" novalidate>
+      
+        <button type="submit" class="modal__submit-btn">Delete</button>
+        <button type="button" class="modal__submit-btn">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
   </body>
 </html>
