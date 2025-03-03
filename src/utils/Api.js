@@ -8,6 +8,7 @@ class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
+  //working
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
@@ -19,6 +20,34 @@ class Api {
     });
   }
 
+  //working
+  addNewCard(cardData) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(cardData),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      });
+  }
+
+  //working
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers, 
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  //workig
   editUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
@@ -32,20 +61,8 @@ class Api {
     });
   }
 
-// TODO - implement POST /cards
-
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers, 
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
-  }
-
-  editAvatar(avatar) {
+  //working
+  editAvatarInfo (avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
@@ -70,7 +87,19 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
-  
+
+  changeLikeStatus(id, isLiked) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: isLiked ? "DELETE" : "PUT",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
 }
 
 export default Api;
