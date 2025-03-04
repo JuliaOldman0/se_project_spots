@@ -4,102 +4,57 @@ class Api {
     this._headers = headers;
   }
 
+  _fetch(endpoint, options = {}) {
+    return fetch(`${this._baseUrl}${endpoint}`, {
+      headers: this._headers,
+      ...options,
+    }).then((res) =>
+      res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+    );
+  }
+
   getAppInfo() {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
-  //working
   getInitialCards() {
-    return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    return this._fetch("/cards");
   }
 
-  //working
   addNewCard(cardData) {
-    return fetch(`${this._baseUrl}/cards`, {
+    return this._fetch("/cards", {
       method: "POST",
-      headers: this._headers,
       body: JSON.stringify(cardData),
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      });
+    });
   }
 
-  //working
   getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers, 
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+    return this._fetch("/users/me");
+  }
+
+  editUserInfo(data) {
+    return this._fetch("/users/me", {
+      method: "PATCH",
+      body: JSON.stringify(data),
     });
   }
 
-  //workig
-  editUserInfo({ name, about }) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  editAvatarInfo(avatar) {
+    return this._fetch("/users/me/avatar", {
       method: "PATCH",
-      headers: this._headers,
-      body: JSON.stringify({ name, about }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
-  }
-
-  //working
-  editAvatarInfo (avatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
-      method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({ avatar }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
-
 
   deleteCard(id) {
-    return fetch(`${this._baseUrl}/cards/${id}`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    return this._fetch(`/cards/${id}`, { method: "DELETE" });
   }
 
   changeLikeStatus(id, isLiked) {
-    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+    return this._fetch(`/cards/${id}/likes`, {
       method: isLiked ? "DELETE" : "PUT",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
     });
   }
-
 }
 
 export default Api;

@@ -130,7 +130,7 @@
   .profile__avatar-container {
     position: relative;
   }
-  
+
   .profile__avatar-btn {
     visibility: visible;
     top: 50px;
@@ -144,7 +144,7 @@
     opacity: 0.6;
     transition: color 0.2s linear;
   }
-  
+
   .profile__avatar-btn::after {
     content: "";
     position: absolute;
